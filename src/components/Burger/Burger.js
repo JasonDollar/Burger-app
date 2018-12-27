@@ -1,4 +1,5 @@
 import React from 'react'
+// import {withRouter} from 'react-router-dom'
 import classes from './Burger.module.css'
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient'
 // import { arch } from 'os';
@@ -12,10 +13,10 @@ const Burger = (props) => {
     .reduce((acc, cur) => {
       return acc.concat(cur)
     }, [])
-    console.log(transformedIngredients)
     if (transformedIngredients.length === 0) {
       transformedIngredients = <p>Please start adding ingredients</p>
     }
+
   return (
     <div className={classes.Burger}>
       <BurgerIngredient type={"bread-top"}/>

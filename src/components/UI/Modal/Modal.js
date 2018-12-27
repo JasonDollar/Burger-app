@@ -5,12 +5,10 @@ import Backdrop from '../Backdrop/Backdrop'
 class Modal extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
-    return nextProps.show !== this.props.show // jesli zwroci true to sie przerenderuje
+    return nextProps.show !== this.props.show || nextProps.children !== this.props.children// jesli zwroci true to sie przerenderuje
   }
 
-  componentWillUpdate() {
-    console.log('modal')
-  }
+  
 
   render() {
     return (

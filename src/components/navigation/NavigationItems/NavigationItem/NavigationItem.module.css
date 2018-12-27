@@ -34,7 +34,7 @@
     height: 100%;
     padding: 16px 10px;
   }
-  
+  /*klasa active z automatu sobie NavLink wezmie*/
   .NavigationItem a:hover,
   .NavigationItem a:active,
   .NavigationItem a.active {
