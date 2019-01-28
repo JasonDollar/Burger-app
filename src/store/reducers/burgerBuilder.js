@@ -5,7 +5,8 @@ import { updateObj } from '../utility'
 const initialState = {
   ingredients: null,
   totalPrice: 400,
-  error: false
+  error: false,
+  building: false,
 }
 
 const INGREDIENT_PRICES = {
@@ -19,7 +20,8 @@ const addIngredient = (state, action) => {
   const updatedIngredients = updateObj(state.ingredients, {[action.ingredientName]: state.ingredients[action.ingredientName] + 1})
   const updatedState = {
     ingredients: updatedIngredients,
-    totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
+    totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName],
+    building: true
   }
   return updateObj(state, updatedState)
 }
@@ -28,7 +30,8 @@ const removeIngredient = (state, action) => {
   const updatedIngredients = updateObj(state.ingredients, {[action.ingredientName]: state.ingredients[action.ingredientName] - 1})
   const updatedState = {
     ingredients: updatedIngredients,
-    totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
+    totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName],
+    building: true,
   }
   return updateObj(state, updatedState)
 }
@@ -41,7 +44,8 @@ const reducer = (state = initialState, action) => {
       return updateObj(state, {
         ingredients: action.ingredients,
         totalPrice: 400,
-        error: false
+        error: false,
+        building: false,
       })
     case actionTypes.FETCH_INGREDIENTS_FAILED: 
       return updateObj(state, {error: true})
