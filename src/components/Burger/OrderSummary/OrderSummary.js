@@ -1,19 +1,13 @@
-import React, {Component} from 'react'
+import React from 'react'
 import Button from '../../UI/Button/Button'
 // import { privateEncrypt } from 'crypto';
 
-class OrderSummary extends Component {
-  // TODO this could be funcional component
-  componentWillUpdate() {
-    console.log("OS will update")
-  }
-  
-  render() {
-    const ingredientSummary = Object.keys(this.props.ingredients)
+const OrderSummary = (props) =>{
+    const ingredientSummary = Object.keys(props.ingredients)
       .map(igKey => {
         return (
           <li key={igKey}>
-            <span style={{textTransform: 'capitalize'}} >{igKey}</span>: {this.props.ingredients[igKey]}
+            <span style={{textTransform: 'capitalize'}} >{igKey}</span>: {props.ingredients[igKey]}
           </li>
         )
       })
@@ -24,14 +18,14 @@ class OrderSummary extends Component {
       <ul>
       {ingredientSummary}
       </ul>
-      <strong><p>Total Price: {(this.props.price / 100).toFixed(2)}</p></strong>
+      <strong><p>Total Price: {(props.price / 100).toFixed(2)}</p></strong>
       <p>Continue to checkout?</p>
-      <Button clicked={this.props.purchaseCanceled} btnType={'Danger'}>CANCEL</Button>
-      <Button clicked={this.props.purchaseContinued} btnType={'Success'}>CONTINUE</Button>
+      <Button clicked={props.purchaseCanceled} btnType={'Danger'}>CANCEL</Button>
+      <Button clicked={props.purchaseContinued} btnType={'Success'}>CONTINUE</Button>
     </React.Fragment>
     )
   }
-}
+
 
 
 export default OrderSummary

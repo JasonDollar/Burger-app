@@ -9,7 +9,6 @@ import Spinner from '../../components/UI/Spinner/Spinner'
 
 import * as actions from '../../store/actions/index'
 
-import classes from './Orders.module.css'
 
 export class Orders extends Component {
   
