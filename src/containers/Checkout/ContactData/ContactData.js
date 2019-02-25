@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import axios from '../../../axios.orders'
 import {connect} from 'react-redux'
 
@@ -10,9 +10,9 @@ import withErrorHandler from '../../../hoc/withErrorHandler/withErrorhandler'
 import * as actions from '../../../store/actions/index'
 import {checkValidity} from '../../../shared/utility'
 
-export class ContactData extends Component {
-  state = {
-    orderForm: {
+const ContactData = props => {
+  
+    const [orderForm, setOrderForm] = useState({
       name: {
           elementType: 'input',
           elementConfig: {
@@ -94,18 +94,18 @@ export class ContactData extends Component {
           validation: {},
           valid: true
       }
-  },
-  formIsValid: false,
-  loading: false
-}
+  })
 
 
-  orderHandler = (e) => {
+  const [formIsValid, setValidity] = useState(false) 
+
+
+  const orderHandler = (e) => {
     e.preventDefault()
     const formData = {}
 
-    for (let element in this.state.orderForm) {
-      formData[element] = this.state.orderForm[element].value
+    for (let element in orderForm) {
+      formData[element] = orderForm[element].value
     }
 
     const order = {
@@ -119,10 +119,10 @@ export class ContactData extends Component {
     
   }
 
-  inputChangedHandler = (e, inputIdentifier) => {
+  const inputChangedHandler = (e, inputIdentifier) => {
     // shallow state copy
     const updatedOrderForm = {
-      ...this.state.orderForm
+      ...orderForm
     } 
     const updatedFormElement= {
       ...updatedOrderForm[inputIdentifier]
@@ -138,38 +138,39 @@ export class ContactData extends Component {
     for (let element in updatedOrderForm) {
       formIsValid = updatedOrderForm[element].valid && formIsValid
     }
-    this.setState({orderForm: updatedOrderForm, formIsValid})
+    setOrderForm(updatedOrderForm)
+    setValidity(formIsValid)
   }
 
-  render() {
+  
     const formElementsArray = []
-    for (let key in this.state.orderForm) {
+    for (let key in orderForm) {
       formElementsArray.push({
         id: key,
-        config: this.state.orderForm[key]
+        config: orderForm[key]
       })
     }
 
     let form = (
-      <form onSubmit={this.orderHandler}>
+      <form onSubmit={orderHandler}>
         {formElementsArray.map(item => (
           <Input 
             key={item.id}
             elementType={item.config.elementType} 
             elementConfig={item.config.elementConfig} 
             value={item.config.value}
-            changed={(e) => this.inputChangedHandler(e, item.id)}
+            changed={(e) => inputChangedHandler(e, item.id)}
             invalid={!item.config.valid}
             shouldValidate={item.config.validation}
             touched={item.config.touched}
           />
         ))}
           
-        <Button btnType="Success" disabled={!this.state.formIsValid}>ORDER</Button>
+        <Button btnType="Success" disabled={!formIsValid}>ORDER</Button>
       </form>
     )
 
-    if (this.props.loading === true) {
+    if (props.loading === true) {
       form = <Spinner />
     }
 
@@ -179,7 +180,7 @@ export class ContactData extends Component {
         {form}
       </div>
     )
-  }
+  
 }
 
 const mapStateToProps = state => ({

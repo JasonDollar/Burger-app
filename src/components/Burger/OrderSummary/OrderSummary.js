@@ -1,6 +1,5 @@
 import React from 'react'
 import Button from '../../UI/Button/Button'
-// import { privateEncrypt } from 'crypto';
 
 const OrderSummary = (props) =>{
     const ingredientSummary = Object.keys(props.ingredients)
